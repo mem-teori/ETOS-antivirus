@@ -9,55 +9,34 @@ ETOS kombinerer:
 - **CDP** – immutable forfatning / grundprincipper
 - **Reflection Center** – post-beslutnings læring og justering
 
-I denne adaptation flytter vi domænet fra etiske/sociale beslutninger → **endpoint-sikkerhed**:
-- Konflikt mellem privatliv / brugervenlighed vs. trusselreduktion
-- Usikkerhed i detektion (false positives, evasion, kontekst)
-- Aggressivitet i respons (log-only vs. kill + isolate)
-
 ## Status (marts 2026)
 
 - Teoretisk fundament (M.E.M.) → solid
-- Beslutningsmotor (IDK/CDP) → ~70–80 % færdig (genbrugt fra etik-prototypen)
+- Beslutningsmotor (IDK/CDP) → ~70–80 % færdig
 - Sikkerheds-adaptation → tidlig prototype-fase
-- Reflection / læring → koncept + basal implementering
 
 ## Mappe-struktur
 
 ```text
 etos-ad/
-├── core/                  # IKKE publiceret – privat mappe / separat repo
-│   ├── mem_theory.md
-│   ├── idk_engine.py
-│   ├── cdp.py
-│   └── reflection_center.py
-├── security/              # Her bygger vi antivirus-logikken
-│   ├── security_mapper.py     # mapper events → IDK-parametre
-│   └── security_etos_demo.py  # simpel loop med simulerede events
-├── ui/                    # Flask + fremtidige dashboards
-├── dirigent/              # PySide6 idé- og projektstyring (kopi eller submodule)
-├── docs/                  # noter, use-cases, blockers
+├── core/                  # IKKE publiceret
+├── security/
+│   ├── security_mapper.py
+│   └── security_etos_demo.py
+├── .github/workflows/
 ├── LICENSE
 ├── README.md
+├── requirements.txt
 └── .gitignore
 ```
 
-## Vigtig note om ejerskab
+## Sådan kører du demoen lokalt (midlertidig – kræver din egen IDK-motor)
 
-Kernen (M.E.M.-teorien + IDK/CDP/Reflection-motoren) er **Maria [dit efternavn]'s intellektuelle ejendom**.  
-`/core`-mappen er **ikke** inkluderet i dette offentlige repo.  
+1. Klon repoet:
+git clone https://github.com/ditbrugernavn/etos-ad.git
+cd etos-ad
 
-Alt andet (sikkerheds-adaptation, demo-kode, UI-forslag) er MIT-licenseret.
+2. Kopier din private `idk_engine.py` og `reflection_center.py` ind i en mappe kaldet `core/`
 
-## Licens
-
-MIT (se LICENSE) – for alt udover `/core`.
-
-## Næste trin (roadmap – tidlig 2026)
-
-- [ ] Simuleret event-loop med realistiske trussel-scenarier
-- [ ] Outcome-feedback → justering af IDK-vægte (uden CDP-brud)
-- [ ] Integration med ETW / AMSI / fil-system watchers (Windows-fokus først)
-- [ ] Minimal dashboard (divergence trends, emergency-rate, debt)
-- [ ] YARA/heuristik som ekstra "regler"-input
-
-Velkommen til at følge med, stille spørgsmål eller foreslå små forbedringer!
+3. Kør demoen:
+python security/security_etos_demo.py
