@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Maria Edlenborg 
+Copyright (c) 2026 Maria [dit efternavn]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Vigtig note:
+Kernen (M.E.M.-teorien, IDK-beslutningsmotor, CDP og Reflection Center-implementering)
+er proprietær / ikke omfattet af denne MIT-licens.
+Disse dele findes ikke i dette offentlige repository.
