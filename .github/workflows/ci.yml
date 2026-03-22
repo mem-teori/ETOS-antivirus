@@ -2,32 +2,45 @@ name: ETOS-Antivirus CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "master", "develop"]
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  test:
+  validate:
+    name: Validate on Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
 
-      - name: Install dependencies
+      - name: Install runtime and dev dependencies
         run: |
-          pip install -r requirements.txt
-          pip install pytest flake8
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
 
-      - name: Check syntax
-        run: python -m compileall security
+      - name: Compile Python files
+        run: python -m compileall security tests
 
-      - name: Lint
-        run: flake8 security
+      - name: Lint ETOS-Antivirus modules
+        run: flake8 security tests
 
-      - name: Run demo (ETOS-Antivirus)
+      - name: Run mapper and smoke tests
+        run: pytest -q
+
+      - name: Run demo in CI mode
         run: python security/security_etos_demo.py --once --sleep 0
