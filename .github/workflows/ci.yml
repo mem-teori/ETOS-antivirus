@@ -1,0 +1,33 @@
+name: ETOS-Antivirus CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest flake8
+
+      - name: Check syntax
+        run: python -m compileall security
+
+      - name: Lint
+        run: flake8 security
+
+      - name: Run demo (ETOS-Antivirus)
+        run: python security/security_etos_demo.py --once --sleep 0
