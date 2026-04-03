@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Maria [dit efternavn]
+Copyright (c) 2026 Maria Edlenborg Mortensen
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@ SOFTWARE.
 
 ---
 
-Vigtig note:
-Kernen (M.E.M.-teorien, IDK-beslutningsmotor, CDP og Reflection Center-implementering)
-er proprietær / ikke omfattet af denne MIT-licens.
-Disse dele findes ikke i dette offentlige repository.
+Scope note:
+This public repository contains only the demo/security adapter layer.
+The underlying M.E.M. theory, ETOS core decision engine, CDP, and Reflection
+Center implementation are not included in this repository.

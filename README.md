@@ -1,42 +1,58 @@
 # ETOS-AD – Adaptive Decision & Defense System
 
-**ETOS-AD** er et eksperimentelt projekt der anvender **ETOS**-arkitekturen (baseret på M.E.M.-teorien) til at skabe et **selvlærende, forklarligt forsvarssystem** – med fokus på cybersikkerhed og adaptiv antivirus-beskyttelse.
+**ETOS-AD** er en offentlig prototype, der demonstrerer hvordan ETOS-arkitekturens beslutningslogik kan bruges i en cybersikkerheds-kontekst.
 
-## Kerneidé
+Projektet viser en lille, forklarlig sikkerhedsadapter, som oversætter events til spændinger (*tensions*) og evaluerer dem gennem en demo-motor. Den private kerne bag ETOS er **ikke** inkluderet i dette repository.
 
-ETOS kombinerer:
-- **IDK** ("I Don't Know") – usikkerheds- og konfliktbaseret beslutningsmotor
-- **CDP** – immutable forfatning / grundprincipper
-- **Reflection Center** – post-beslutnings læring og justering
+## Hvad repoet indeholder
 
-## Status (marts 2026)
+- `security/security_mapper.py` – oversætter sikkerheds-events til ETOS/IDK-lignende tensions på en 0–5 skala
+- `security/security_etos_demo.py` – kørbar demo, inkl. placeholder-motor hvis den private kerne ikke er til stede
+- `tests/` – enkle tests for mapping og smoke test af demoen
+- `.github/workflows/ci.yml` – simpel CI, der kører syntax check og tests
 
-- Teoretisk fundament (M.E.M.) → solid
-- Beslutningsmotor (IDK/CDP) → ~70–80 % færdig
-- Sikkerheds-adaptation → tidlig prototype-fase
+## Arkitekturstatus
+
+- **M.E.M.-teoretisk fundament**: etableret
+- **ETOS-beslutningslag**: intern udvikling
+- **Sikkerhedsadapter / demo**: offentlig prototype
 
 ## Mappe-struktur
 
 ```text
-etos-ad/
-├── core/                  # IKKE publiceret
+ETOS-antivirus/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── security/
-│   ├── security_mapper.py
-│   └── security_etos_demo.py
-├── .github/workflows/
+│   ├── __init__.py
+│   ├── security_etos_demo.py
+│   └── security_mapper.py
+├── tests/
+│   ├── test_security_demo_smoke.py
+│   └── test_security_mapper.py
 ├── LICENSE
 ├── README.md
 ├── requirements.txt
 └── .gitignore
 ```
 
-## Sådan kører du demoen lokalt (midlertidig – kræver din egen IDK-motor)
+## Lokal kørsel
 
-1. Klon repoet:
-git clone https://github.com/ditbrugernavn/etos-ad.git
-cd etos-ad
+```bash
+python -m pip install -r requirements.txt
+python security/security_etos_demo.py --once --sleep 0
+```
 
-2. Kopier din private `idk_engine.py` og `reflection_center.py` ind i en mappe kaldet `core/`
+Hvis du har en privat ETOS-kerne lokalt, kan du lægge den i `core/` med fx `idk_engine.py`.
+Hvis ikke, bruger demoen automatisk en placeholder-motor, så repoet stadig kan køres og testes.
 
-3. Kør demoen:
-python security/security_etos_demo.py
+## Test
+
+```bash
+pytest -q
+```
+
+## Bemærkning
+
+Dette repository er en **offentlig demo/prototype**. Det repræsenterer ikke den fulde ETOS-kernelogik, M.E.M.-teoriens komplette implementering eller den interne governance-motor.
